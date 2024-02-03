@@ -13,24 +13,26 @@
                     <img src="./assets/banner.png" alt="">
                 </div>
             </div>
-            <div class="flex justify-between">
+            <div class="flex justify-between gap-2 items-center">
                 <div>
-                    <h6 class="font-bold text-orange-500">RECETAS</h6>
+                    <h6 class="font-bold text-orange-500">Categorias</h6>
                 </div>
                 <div>
-                    <input type="search" class="text-sm px-4 border-0 rounded-3xl bg-slate-200"
+                    <input type="search" class="text-sm px-4 border-0 w-full rounded-3xl bg-slate-200"
                         placeholder="Search by name">
                 </div>
             </div>
             <div class="">
                 <div class="h-40 lg:h-auto overflow-auto">
-                    <h1 class="text-xl text-orange-500 font-bold py-2">Categorias</h1>
                     <button v-for="item in categories" type="button" @click="filterCategory(item.strCategory)"
                         class="text-slate-500 bg-slate-200 hover:bg-slate-400 transition duration-200 ease-in font-normal rounded-3xl text-sm px-5 py-2.5 text-center inline-flex items-center me-4 mb-2">
                         <img :src="item.strCategoryThumb" class="w-full h-6 me-2" alt="">
                         {{ item.strCategory }}
                     </button>
                 </div>
+            </div>
+            <div>
+                <h6 class="font-bold text-orange-500">Recetas</h6>
             </div>
             <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-10 gap-y-10">
                 <div v-for="(item, index) in products" :key="index"
@@ -47,7 +49,9 @@
                         </div>
                         <div class="flex justify-between text-slate-500 font-medium">
                             <div class="">Categoria: {{ item.strCategory }}</div>
-                            <span class="flex gap-2"><ClockIcon class="h-6" />10 - 20</span>
+                            <span class="flex gap-2">
+                                <ClockIcon class="h-6" />10 - 20
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -58,7 +62,7 @@
 
 <script setup>
 import { ref } from "vue"
-import { ClockIcon} from "@heroicons/vue/24/outline"
+import { ClockIcon } from "@heroicons/vue/24/outline"
 import desserts from "../src/assets/desserts.png"
 import drinks from "../src/assets/drinks.png"
 import fastfood from "../src/assets/fastfood.png"
@@ -69,7 +73,7 @@ import axios from "axios"
 const products = ref([]), categories = ref([])
 
 const filterCategory = (value) => {
-    axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?c="+value).then((response) => {
+    axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?c=" + value).then((response) => {
         products.value = response.data.meals
     })
 }
