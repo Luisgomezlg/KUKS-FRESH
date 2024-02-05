@@ -35,9 +35,9 @@
                 <h6 class="font-bold text-orange-500">Recetas</h6>
             </div>
             <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-10 gap-y-10">
-                <div v-for="(item, index) in products" :key="index"
+                <div v-for="(item, index) in recetas" :key="index"
                     class="bg-white border border-slate-50 rounded-lg shadow-lg shadow-slate-100 transition duration-200 ease-in hover:scale-105">
-                    <RouterLink :to="'/producto/' + item.idMeal" href="#" class="block overflow-hidden rounded-t-lg">
+                    <RouterLink :to="'/receta/' + item.idMeal" href="#" class="block overflow-hidden rounded-t-lg">
                         <img class="h-60 w-full object-cover" :src="item.strMealThumb" alt="" />
                     </RouterLink>
                     <div class="p-4 space-y-2">
@@ -70,11 +70,11 @@ import breakfast from "../src/assets/breakfast.png"
 import lunch from "../src/assets/lunch.png"
 import axios from "axios"
 
-const products = ref([]), categories = ref([])
+const recetas = ref([]), categories = ref([])
 
 const filterCategory = (value) => {
     axios.get("https://www.themealdb.com/api/json/v1/1/filter.php?c=" + value).then((response) => {
-        products.value = response.data.meals
+        recetas.value = response.data.meals
     })
 }
 
@@ -84,11 +84,11 @@ const categoriesFunc = () => {
     })
 }
 
-const productsFunc = () => {
+const recetasFunc = () => {
     axios.get("https://www.themealdb.com/api/json/v1/1/search.php?f=k").then((response) => {
-        products.value = response.data.meals
+        recetas.value = response.data.meals
     })
 }
-productsFunc()
+recetasFunc()
 categoriesFunc()
 </script>
